@@ -1,0 +1,28 @@
+---
+import { urlForImage } from "../sanity/lib/url-for-image";
+
+const { copy: {
+  heading,
+  image,
+  text,
+} = {
+  heading: "Heading",
+  image: null,
+  text: "Text",
+}} = Astro.props;
+---
+<section class="section bg-primary">
+  <div class="content grid md:grid-cols-2 gap-gh">
+    <img class="w-full rounded-lg shadow-lg max-md:row-2 max-md:max-w-100"
+      src={urlForImage(image).width(600).height(800).url()}
+      alt={image.alt}
+    />
+
+    <div class="space-y-gv max-md:space-y-sg">
+      <h2 class="heading text-light!">{heading}</h2>
+      {text?.split("\n\n")?.map((p:string) => (
+        <p class="paragraph text-light!">{p}</p>
+      ))}
+    </div>
+  </div>
+</section>

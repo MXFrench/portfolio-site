@@ -6,9 +6,10 @@ export default defineType({
   type: "object",
   fields: [
     defineField({
-      name: "Heading",
+      name: "heading",
       title: "Heading",
       type: "string",
+      validation: Rule => Rule.required(),
     }),
 
     defineField({
@@ -16,6 +17,7 @@ export default defineType({
       title: "Text",
       type: "text",
       description: "Use two new lines (press enter twice) for new paragraphs.",
+      validation: Rule => Rule.required(),
     }),
 
     defineField({
@@ -37,6 +39,7 @@ export default defineType({
           },
         },
       ],
+      validation: Rule => Rule.required(),
     }),
   ],
 });

@@ -11,7 +11,7 @@
   --spacing-sv: 10rem; /* 160px - Section vertical */
   --spacing-pv: 6rem; /* 96px - Inner vertical */
   --spacing-gv: 3rem; /* 48px - Gap vertical */
-  --spacing-gh: 2rem; /* 32 px - Gap horizontal */
+  --spacing-gh: 2rem; /* 32px - Gap horizontal */
   --spacing-sp: 2rem; /* 32px - Site padding */
   --spacing-sg: 1.5rem; /* 24px - Small gap */
 
@@ -32,7 +32,7 @@ body {
 /* Typography */
 
 .title {
-  @apply text-9xl tracking-tighter font-medium text-balance leading-none text-shadow-(--shadow-txt)
+  @apply text-9xl tracking-tighter font-medium text-balance leading-none text-shadow-(--shadow-txt) capitalize
   max-xl:text-8xl max-lg:text-7xl max-md:text-6xl max-sm:text-5xl;
 }
 
@@ -42,11 +42,13 @@ body {
 }
 
 .heading {
-  @apply text-8xl tracking-tight font-bold text-shadow-(--shadow-txt);
+  @apply text-8xl tracking-tight font-bold text-shadow-(--shadow-txt) capitalize text-primary
+  max-xl:text-7xl max-lg:text-6xl max-md:text-5xl max-sm:text-4xl;
 }
 
 .paragraph {
-  @apply text-2xl font-light;
+  @apply text-dark/75 text-2xl max-lg:text-xl max-md:text-lg max-md:font-normal max-sm:text-base;
+  line-height: 180%;
 }
 
 .projectTitle {
@@ -125,3 +127,31 @@ body {
   @apply max-md:hidden;
 }
 
+/* Form */
+
+.form {
+  @apply grid gap-gv;
+}
+
+.form .form-group {
+  @apply grid sm:grid-cols-2 gap-gh;
+}
+
+.form label {
+  @apply grid gap-sg font-bold text-xl max-lg:text-lg max-md:text-base cursor-pointer;
+}
+
+.form, .form .form-group, .form label {
+  @apply max-md:gap-4;
+}
+
+.form input, .form textarea {
+  @apply py-3 px-6 w-full rounded-sm border border-dark/25 bg-primary/10
+  text-xl max-lg:text-lg max-md:text-base
+  placeholder:font-normal outline-0 font-medium
+  hover:border-primary focus:ring-2 focus:ring-primary transition;
+}
+
+.form textarea {
+  @apply h-80;
+}

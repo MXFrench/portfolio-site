@@ -2,7 +2,10 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import type { SanityDocument } from "@sanity/client";
 import { sanityClient } from "sanity:client";
-import HeroSection from "../homeSections/heroSection.astro";
+import HeroSection from "../homeSections/HeroSection.astro";
+import PortfolioSection from "../homeSections/PortfolioSection.astro";
+import AboutSection from "../homeSections/AboutSection.astro";
+import ContactSection from "../homeSections/ContactSection.astro";
 
 const COPY_QUERY = `{
 	"siteSettings": *[_type == "siteSettings"][0],
@@ -15,4 +18,9 @@ const { homepage, siteSettings } = await sanityClient.fetch<SanityDocument>(COPY
 <BaseLayout title={siteSettings?.siteTitle} description={siteSettings?.description}>
 	<HeroSection copy={homepage?.heroSection} />
 
+	<PortfolioSection copy={homepage?.portfolioSection} />
+
+	<AboutSection copy={homepage?.aboutSection} />
+
+	<ContactSection copy={homepage?.contactSection} />
 </BaseLayout>

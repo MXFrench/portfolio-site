@@ -1,0 +1,23 @@
+---
+const { copy: {
+  heading,
+  text,
+} = {
+  heading: "Heading",
+  text: null,
+} } = Astro.props;
+---
+<section class="section">
+  <div class="content space-y-pv max-md:space-y-gv">
+    <div class="space-y-gv max-md:space-y-sg">
+      <h2 class="heading">{heading}</h2>
+      {text && <p class="paragraph">{text}</p>}
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-gh">
+      <div class="aspect-3/4 bg-accent/50 rounded-lg">Card</div>
+      <div class="aspect-3/4 bg-accent/50 rounded-lg">Card</div>
+      <div class="aspect-3/4 bg-accent/50 rounded-lg">Card</div>
+    </div>
+  </div>
+</section>
