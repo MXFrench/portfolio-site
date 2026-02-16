@@ -1,0 +1,31 @@
+---
+import { urlForImage } from "../sanity/lib/url-for-image";
+
+const { project: {
+  title,
+  slug,
+  summary,
+  liveSite,
+  image,
+} = {} } = Astro.props;
+const link = `/project/${slug}`;
+---
+<div class="grid gap-gv group">
+  <a href={link} class="block w-full aspect-square rounded-lg shadow-lg border border-dark hover:border-primary hover:scale-101 relative overflow-hidden cursor-pointer transition">
+    <img class="size-full object-cover object-top grayscale group-hover:grayscale-0 transition"
+      src={urlForImage(image?.image).width(400).url()}
+      alt={`${title} portfolio cover image.`}
+    />
+    <div class="absolute size-full bg-primary/15 inset-0 group-hover:opacity-0 transition"></div>
+  </a>
+
+  <a href={link} class="grid gap-sg cursor-pointer hover:text-primary transition">
+    <h3 class="text-3xl font-bold leading-none">{title}</h3>
+    <p class="text-xl text-dark/75">{summary}</p>
+  </a>
+
+  <div class="grid grid-cols-2 gap-sg">
+    <a href={link} class="btn btn-primary-solid text-center">Learn More</a>
+    <a href={liveSite} target="_blank" class="btn btn-primary-outline text-center">Live Site</a>
+  </div>
+</div>

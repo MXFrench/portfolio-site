@@ -1,0 +1,39 @@
+---
+import type { SanityDocument } from "@sanity/client";
+import { sanityClient } from "sanity:client";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { urlForImage } from "../../sanity/lib/url-for-image";
+
+const PROJECT_QUERY = `*[_type == "project" && slug.current == $slug][0]`;
+const project = await sanityClient.fetch<SanityDocument>(PROJECT_QUERY, Astro.params);
+
+export async function getStaticPaths(): Promise<{ params: { slug: string } }> {
+  const SLUGS_QUERY = `*[_type == "project" && defined(slug.current)]{
+    "params": {"slug": slug.current}
+  }`;
+  return await sanityClient.fetch(SLUGS_QUERY, Astro.params);
+}
+---
+<BaseLayout>
+  <main class="section">
+    <div class="grid gap-8 content">
+      <h1 class="heading">{project?.title}</h1>
+      <p class="paragraph italic">{project?.summary}</p>
+      <div class="flex gap-4">
+        <a class="px-2 py-1 rounded bg-dark text-light cursor-pointer hover:bg-primary transition" href={project?.links?.figma}>Figma File</a>
+        <a class="px-2 py-1 rounded bg-dark text-light cursor-pointer hover:bg-primary transition" href={project?.links?.github}>GitHub Repo</a>
+        <a class="px-2 py-1 rounded bg-dark text-light cursor-pointer hover:bg-primary transition" href={project?.links?.liveSite}>Live Site</a>
+      </div>
+      {project?.description?.split("\n\n")?.map((p: string) => (
+        <p class="paragraph">{p}</p>
+      ))}
+  
+      {project?.images?.map(({image, title}: {image: object, title: string}) => (
+        <img
+          src={urlForImage(image).width(1200).url()}
+          alt={title}
+        />
+      ))}
+    </div>
+  </main>
+</BaseLayout>

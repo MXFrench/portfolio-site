@@ -1,0 +1,64 @@
+---
+const { formEndpoint } = Astro.props;
+---
+<form class="form" action={formEndpoint} method="post">
+  <div class="form-group">
+    <label>
+      <span>First Name</span>
+      <input type="text"
+        name="FirstName"
+        placeholder="First Name"
+        required
+      />
+    </label>
+
+    <label>
+      <span>Last Name</span>
+      <input type="text"
+        name="LastName"
+        placeholder="Last Name"
+        required
+      />
+    </label>
+  </div>
+
+  <div class="form-group">
+    <label>
+      <span>Email</span>
+      <input type="email"
+        name="Email"
+        placeholder="Email"
+        required
+      />
+    </label>
+
+    <label>
+      <span>Phone</span>
+      <input type="tel"
+        name="Phone"
+        placeholder="Phone"
+        required
+      />
+    </label>
+  </div>
+
+  <label>
+    <span>Company</span>
+    <input type="text"
+      name="Company"
+      placeholder="Company"
+      required
+    />
+  </label>
+
+  <label>
+    <span>Message</span>
+    <textarea
+      name="Message"
+      placeholder="Message"
+      required
+    ></textarea>
+  </label>
+
+  <button type="submit" class="btn btn-primary-solid justify-self-start">Send Message</button>
+</form>

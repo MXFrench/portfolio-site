@@ -1,4 +1,8 @@
 ---
+import ProjectCard from "../components/ProjectCard.astro";
+import type { SanityDocument } from "@sanity/client";
+import { sanityClient } from "sanity:client";
+
 const { copy: {
   heading,
   text,
@@ -6,8 +10,23 @@ const { copy: {
   heading: "Heading",
   text: null,
 } } = Astro.props;
+
+const PROJECTS_QUERY = `*[
+  _type == "project"
+  && defined(slug.current)
+]{
+  title,
+  "slug": slug.current,
+  summary,
+  "liveSite": links.liveSite,
+  "image": images[0]{
+    title,
+    image
+  }
+}`;
+const projects = await sanityClient.fetch<SanityDocument[]>(PROJECTS_QUERY);
 ---
-<section class="section">
+<section id="portfolio" class="section">
   <div class="content space-y-pv max-md:space-y-gv">
     <div class="space-y-gv max-md:space-y-sg">
       <h2 class="heading">{heading}</h2>
@@ -15,9 +34,9 @@ const { copy: {
     </div>
 
     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-gh">
-      <div class="aspect-3/4 bg-accent/50 rounded-lg">Card</div>
-      <div class="aspect-3/4 bg-accent/50 rounded-lg">Card</div>
-      <div class="aspect-3/4 bg-accent/50 rounded-lg">Card</div>
+      {projects?.map((project) => (
+        <ProjectCard project={project} />
+      ))}
     </div>
   </div>
 </section>
