@@ -1,6 +1,14 @@
 ---
 import "./../styles/global.css";
-const { title="Untitled", description="" } = Astro.props;
+import type { SanityDocument } from "@sanity/client";
+import { sanityClient } from "sanity:client";
+import Footer from "../components/Footer.astro";
+
+const { title=null, description=null } = Astro.props;
+
+const QUERY = `*[_type == "siteSettings"][0]`;
+
+const siteSettings = await sanityClient.fetch<SanityDocument>(QUERY);
 ---
 
 <html lang="en">
@@ -9,10 +17,12 @@ const { title="Untitled", description="" } = Astro.props;
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-    <meta name="description" content={description} />
+		<title>{title || siteSettings?.siteTitle}</title>
+    <meta name="description" content={description || siteSettings?.description} />
 	</head>
 	<body>
 		<slot />
+
+		<Footer footerText={siteSettings?.footerText} footerLinks={siteSettings?.footerLinks} />
 	</body>
 </html>

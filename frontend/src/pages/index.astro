@@ -7,15 +7,12 @@ import PortfolioSection from "../homeSections/PortfolioSection.astro";
 import AboutSection from "../homeSections/AboutSection.astro";
 import ContactSection from "../homeSections/ContactSection.astro";
 
-const COPY_QUERY = `{
-	"siteSettings": *[_type == "siteSettings"][0],
-	"homepage": *[_type == "homepage"][0],
-}`;
+const HOMEPAGE_QUERY = `*[_type == "homepage"][0]`;
 
-const { homepage, siteSettings } = await sanityClient.fetch<SanityDocument>(COPY_QUERY);
+const homepage = await sanityClient.fetch<SanityDocument>(HOMEPAGE_QUERY);
 
 ---
-<BaseLayout title={siteSettings?.siteTitle} description={siteSettings?.description}>
+<BaseLayout>
 	<HeroSection copy={homepage?.heroSection} />
 
 	<PortfolioSection copy={homepage?.portfolioSection} />

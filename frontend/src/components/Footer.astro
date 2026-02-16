@@ -1,0 +1,22 @@
+---
+const { 
+  footerText="Footer Text",
+  footerLinks=[],
+ } = Astro.props;
+
+type FooterLink = {
+  label: string;
+  url: string;
+}
+---
+<footer class="section py-pv! max-md:py-gv! bg-dark">
+  <div class="content grid gap-gv max-md:gap-sg justify-center">
+    <div class="flex gap-12 justify-center flex-wrap">
+      {footerLinks?.map(({ label, url}: FooterLink) => (
+        <a href={url} class="text-light hover:text-primary! sm:text-lg transition">{label}</a>
+      ))}
+    </div>
+
+    <p class="max-sm:text-sm text-center text-light/75">{footerText}</p>
+  </div>
+</footer>
