@@ -1,1 +1,127 @@
 @import "tailwindcss";
+
+@theme {
+  --color-dark: #1A0E3F;
+  --color-gradient-end: #5237a0;
+  --color-primary: #7E56F6;
+  --color-light: #F0EEF8;
+  --color-accent: #FFEE35;
+  --color-alternate: #342F41;
+
+  --spacing-sv: 10rem; /* 160px - Section vertical */
+  --spacing-pv: 6rem; /* 96px - Inner vertical */
+  --spacing-gv: 3rem; /* 48px - Gap vertical */
+  --spacing-gh: 2rem; /* 32 px - Gap horizontal */
+  --spacing-sp: 2rem; /* 32px - Site padding */
+  --spacing-sg: 1.5rem; /* 24px - Small gap */
+
+  --spacing-section: 75rem; /* 1200px - Max section width */
+}
+
+:root {
+  --shadow-txt: 0 .25rem .25rem rgb(26 14 63 / 25%);
+  --shadow-blk: 0 .25rem 1.25rem -.5rem rgb(26 14 63 / 25%);
+}
+
+/* Base */
+
+body {
+  @apply bg-light text-dark selection:bg-accent/50;
+}
+
+/* Typography */
+
+.title {
+  @apply text-9xl tracking-tighter font-medium text-balance leading-none text-shadow-(--shadow-txt)
+  max-xl:text-8xl max-lg:text-7xl max-md:text-6xl max-sm:text-5xl;
+}
+
+.subtitle {
+  @apply text-4xl font-light text-balance
+  max-xl:text-3xl max-lg:text-2xl max-md:text-xl max-md:tracking-wide max-sm:text-lg;
+}
+
+.heading {
+  @apply text-8xl tracking-tight font-bold text-shadow-(--shadow-txt);
+}
+
+.paragraph {
+  @apply text-2xl font-light;
+}
+
+.projectTitle {
+  @apply text-6xl tracking-tighter font-bold;
+}
+
+/* Layout */
+
+.section {
+  @apply px-sp py-sv max-md:py-pv;
+}
+
+.section .content {
+  @apply max-w-section mx-auto;
+}
+
+/* Buttons */
+
+.btn {
+  @apply leading-none cursor-pointer transition
+         font-bold tracking-wide px-6 py-3 rounded-sm
+         hover:-translate-y-0.5;
+}
+
+.btn-lg {
+  @apply px-8! py-4! text-xl! hover:-translate-y-1
+  max-md:px-6! max-md:py-3! max-md:hover:-translate-y-0.5;
+}
+
+.btn-accent-solid {
+  @apply bg-accent text-dark hover:bg-light;
+}
+
+.btn-accent-outline {
+  @apply bg-transparent border-2 border-accent text-accent hover:bg-accent hover:text-dark;
+}
+
+.btn-primary-solid {
+  @apply bg-primary text-light hover:bg-accent hover:text-dark;
+}
+
+.btn-primary-outline {
+  @apply bg-transparent text-primary border-2 border-primary hover:bg-primary hover:text-light;
+}
+
+.btn-dark-solid {
+  @apply bg-dark text-light hover:bg-accent hover:text-dark;
+}
+
+/* Navbar */
+
+.navbar {
+  @apply flex justify-between items-center
+  max-md:flex-col max-md:items-stretch max-md:gap-12;
+}
+
+.navbar-top {
+  @apply flex justify-between items-center;
+}
+
+.navbar-btn {
+  @apply md:hidden p-1 aspect-square rounded text-light hover:bg-primary border border-primary transition cursor-pointer hover:-translate-y-0.5 has-checked:ring-2 ring-accent;
+}
+
+.navbar-list {
+  @apply flex gap-12 text-xl text-light/75
+  max-md:flex-col max-md:py-2 max-md:bg-dark max-md:rounded max-md:shadow max-md:border max-md:border-light/15 max-md:gap-4;
+}
+
+.navbar-link {
+  @apply max-md:w-full px-2 py-1 rounded transition inline-block
+  hover:bg-primary hover:text-dark hover:shadow hover:-translate-y-0.5;
+}
+
+.navbar:has(.navbar-toggle:not(:checked)) .navbar-list {
+  @apply max-md:hidden;
+}
+

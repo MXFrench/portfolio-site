@@ -1,0 +1,35 @@
+---
+import Navbar from "../components/navbar.astro";
+
+const { copy: {
+  title,
+  subtitle,
+  portfolioLinkText,
+  contactLinkText,
+} = {
+  title: "Title",
+  subtitle: "Subtitle",
+  portfolioLinkText: "Portfolio Link",
+  contactLinkText: "Contact Link",
+} } = Astro.props;
+---
+
+<section class="section pt-pv! max-md:pt-gv! bg-dark bg-linear-to-br from-dark to-gradient-end">
+  <div class="content grid gap-sv max-md:gap-pv text-light">
+    <Navbar />
+
+    <header>
+      <h1 class="title [&>span]:text-primary mb-gv max-md:mb-sg">
+        {title?.split("|")[0]}
+        <span>{title?.split("|")[1]}</span>
+      </h1>
+
+      <p class="subtitle mb-pv max-md:mb-gv">{subtitle}</p>
+
+      <div class="flex gap-gh max-md:gap-4 max-sm:flex-col text-center">
+        <a href="#portfolio" class="btn btn-lg btn-accent-solid">{portfolioLinkText}</a>
+        <a href="#contact" class="btn btn-lg btn-accent-outline">{contactLinkText}</a>
+      </div>
+    </header>
+  </div>
+</section>

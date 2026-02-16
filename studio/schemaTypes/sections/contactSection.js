@@ -19,8 +19,8 @@ export default defineType({
     }),
 
     defineField({
-      name: "formInput",
-      title: "Form Input",
+      name: "formEndpoint",
+      title: "Form Endpoint",
       type: "string",
       validation: Rule => Rule.required(),
     }),

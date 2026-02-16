@@ -1,17 +1,18 @@
 ---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import type { SanityDocument } from "@sanity/client";
+import { sanityClient } from "sanity:client";
+import HeroSection from "../homeSections/heroSection.astro";
+
+const COPY_QUERY = `{
+	"siteSettings": *[_type == "siteSettings"][0],
+	"homepage": *[_type == "homepage"][0],
+}`;
+
+const { homepage, siteSettings } = await sanityClient.fetch<SanityDocument>(COPY_QUERY);
 
 ---
+<BaseLayout title={siteSettings?.siteTitle} description={siteSettings?.description}>
+	<HeroSection copy={homepage?.heroSection} />
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+</BaseLayout>
