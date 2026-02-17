@@ -13,7 +13,7 @@ type FooterLink = {
   <div class="content grid gap-gv max-md:gap-sg justify-center">
     <div class="flex gap-12 justify-center flex-wrap">
       {footerLinks?.map(({ label, url}: FooterLink) => (
-        <a href={url} class="text-light hover:text-primary! sm:text-lg transition">{label}</a>
+        <a href={url} target="_blank" class="text-light hover:text-primary! sm:text-lg transition">{label}</a>
       ))}
     </div>
 

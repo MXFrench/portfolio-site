@@ -35,7 +35,7 @@ export async function getStaticPaths(): Promise<{ params: { slug: string } }> {
         </div>
 
         <!-- Tab Buttons -->
-        <div class="flex gap-sg">
+        <div class="flex max-xs:flex-col max-xs:gap-4 text-center gap-sg">
           <label class="btn has-checked:bg-dark has-checked:text-light border-2 border-dark">
             <span>Images</span>
             <input type="radio" name="tab" class="hidden" id="images" checked>
@@ -63,7 +63,7 @@ export async function getStaticPaths(): Promise<{ params: { slug: string } }> {
           <hr class="project:hidden border-dark/75" />
 
           <!-- Project links -->
-          <div class="flex flex-wrap gap-sg">
+          <div class="flex flex-wrap gap-sg max-sm:gap-4 max-xs:flex-col text-center">
             {project?.links?.figma && (
               <a class="project-link" target="_blank" href={project?.links?.figma}>Figma File</a>
             )}
@@ -80,7 +80,7 @@ export async function getStaticPaths(): Promise<{ params: { slug: string } }> {
           <!-- Description paragraphs -->
           <article class="space-y-gv max-md:space-y-sg">
             {project?.description?.split("\n\n")?.map((p:string) => (
-              <p class="paragraph">{p}</p>
+              <p class="paragraph lg:text-xl! lg:leading-[200%]!">{p}</p>
             ))}
           </article>
         </div>

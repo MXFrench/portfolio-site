@@ -18,6 +18,7 @@
   --spacing-section: 75rem; /* 1200px - Max section width */
 
   --breakpoint-project: 75rem;
+  --breakpoint-xs: 25rem;
 }
 
 :root {
@@ -65,7 +66,7 @@ body {
 /* Layout */
 
 .section {
-  @apply px-sp py-sv max-md:py-pv;
+  @apply px-sp py-sv max-md:py-pv max-xs:px-4;
 }
 
 .section .content {
@@ -187,12 +188,12 @@ body {
 }
 
 .project-image-tabs {
-  @apply flex overflow-x-auto gap-gh;
+  @apply flex gap-gh;
 }
 
 .project-image-tab {
   @apply has-checked:text-primary border-b-2 border-transparent has-checked:border-primary
-  transition cursor-pointer hover:-translate-y-0.5;
+  transition cursor-pointer hover:-translate-y-0.5 shrink-0;
 }
 
 
