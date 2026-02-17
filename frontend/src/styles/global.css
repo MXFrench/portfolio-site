@@ -188,7 +188,7 @@ body {
 }
 
 .project-image-tabs {
-  @apply flex gap-gh;
+  @apply flex gap-gh flex-wrap;
 }
 
 .project-image-tab {
@@ -196,6 +196,7 @@ body {
   transition cursor-pointer hover:-translate-y-0.5 shrink-0;
 }
 
+/* Animations */
 
 @keyframes fadein {
   from {

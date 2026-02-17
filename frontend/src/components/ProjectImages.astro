@@ -11,23 +11,21 @@ const tabs: string[] = images?.map((img:imageObj) => img?.title?.toLowerCase());
 ---
 <div class="showImages project-images space-y-gv max-md:space-y-sg">
   <!-- Tabs -->
-  <section class="overflow-x-auto max-sm:py-2 max-sm:px-4 rounded max-sm:border border-primary/50 max-sm:bg-primary/5">
-    <div class="project-image-tabs">
-      <!-- All Pages tab -->
-      <label class="project-image-tab">
-        <span class="font-bold capitalize">All Pages</span>
-        <input type="radio" name="imageTab" id="allPages" class="hidden" checked />
-      </label>
+  <div class="project-image-tabs">
+    <!-- All Pages tab -->
+    <label class="project-image-tab">
+      <span class="font-bold capitalize">All Pages</span>
+      <input type="radio" name="imageTab" id="allPages" class="hidden" checked />
+    </label>
   
-      <!-- Other tabs -->
-      {tabs?.map((tab) => (
-        <label class="project-image-tab">
-          <span class="font-bold capitalize">{tab}</span>
-          <input type="radio" name="imageTab" id={tab?.split(" ")?.join("")} class="hidden" />
-        </label>
-      ))}
-    </div>
-  </section>
+    <!-- Other tabs -->
+    {tabs?.map((tab) => (
+      <label class="project-image-tab">
+        <span class="font-bold capitalize">{tab}</span>
+        <input type="radio" name="imageTab" id={tab?.split(" ")?.join("")} class="hidden" />
+      </label>
+    ))}
+  </div>
 
   <!-- Images -->
   <div class="project-images space-y-gv max-md:space-y-sg">
