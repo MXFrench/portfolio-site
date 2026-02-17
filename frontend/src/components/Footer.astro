@@ -17,6 +17,15 @@ type FooterLink = {
       ))}
     </div>
 
-    <p class="max-sm:text-sm text-center text-light/75">{footerText}</p>
+    <p id="footerTxt" class="max-sm:text-sm text-center text-light/75">{footerText}</p>
   </div>
 </footer>
+
+<script>
+  const footerTxt = document.getElementById("footerTxt");
+  if (footerTxt instanceof HTMLElement) {
+    const txt = footerTxt.innerHTML;
+    const year = new Date().getFullYear();
+    footerTxt.innerHTML = txt.replace("$YEAR", year.toString());
+  }
+</script>
