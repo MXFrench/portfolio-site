@@ -33,7 +33,7 @@ const projects = await sanityClient.fetch<SanityDocument[]>(PROJECTS_QUERY);
       {text && <p class="paragraph">{text}</p>}
     </div>
 
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-gh">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-gh gap-y-pv">
       {projects?.map((project) => (
         <ProjectCard project={project} />
       ))}

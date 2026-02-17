@@ -1,0 +1,72 @@
+---
+import { urlForImage } from "../sanity/lib/url-for-image";
+
+const { images } = Astro.props;
+type imageObj = {
+  image: object,
+  title: string,
+};
+
+const tabs: string[] = images?.map((img:imageObj) => img?.title?.toLowerCase());
+---
+<div class="showImages project-images space-y-gv max-md:space-y-sg">
+  <!-- Tabs -->
+  <div class="project-image-tabs">
+    <!-- All Pages tab -->
+    <label class="project-image-tab">
+      <span class="font-bold capitalize">All Pages</span>
+      <input type="radio" name="imageTab" id="allPages" class="hidden" checked />
+    </label>
+
+    <!-- Other tabs -->
+    {tabs?.map((tab) => (
+      <label class="project-image-tab">
+        <span class="font-bold capitalize">{tab}</span>
+        <input type="radio" name="imageTab" id={tab?.split(" ")?.join("")} class="hidden" />
+      </label>
+    ))}
+  </div>
+
+  <!-- Images -->
+  <div class="project-images space-y-gv max-md:space-y-sg">
+    {images?.map((image:imageObj) => (
+      <a href={urlForImage(image?.image).width(1400).url()}
+        data-image={image?.title?.toLocaleLowerCase()} 
+        class="cursor-zoom-in block"
+        target="_blank"
+      >
+        <img class="w-full rounded-lg shadow-xl border border-primary/50 hover:border-primary hover:scale-101 hover:shadow-2xl transition"
+          src={urlForImage(image?.image).width(1200).url()}
+          alt={image?.title}
+          />
+      </a>
+    ))}
+  </div>
+</div>
+
+<script>
+  document
+    .querySelector(".project-image-tabs")
+    ?.addEventListener("change", (e: Event) => {
+      const target = e.target as HTMLElement | null;
+      const selectedImage = target?.id;
+
+      const images = document.querySelectorAll<HTMLElement>("[data-image]");
+      
+      if (selectedImage === "allPages") {
+        images.forEach((image) => {
+          image.classList.remove("hidden");
+        });
+      } else {
+        images.forEach((image) => {
+          const currentImage = image?.dataset?.image?.replace(/\s+/g, "");
+
+          if (currentImage === selectedImage) {
+            image.classList.remove("hidden");
+          } else {
+            image.classList.add("hidden");
+          }
+        });
+      }
+  });
+</script>

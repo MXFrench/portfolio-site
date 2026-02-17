@@ -1,8 +1,10 @@
 ---
 import type { SanityDocument } from "@sanity/client";
 import { sanityClient } from "sanity:client";
+
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { urlForImage } from "../../sanity/lib/url-for-image";
+import Navbar from "../../components/Navbar.astro";
+import ProjectImages from "../../components/ProjectImages.astro";
 
 const PROJECT_QUERY = `*[_type == "project" && slug.current == $slug][0]`;
 const project = await sanityClient.fetch<SanityDocument>(PROJECT_QUERY, Astro.params);
@@ -14,26 +16,77 @@ export async function getStaticPaths(): Promise<{ params: { slug: string } }> {
   return await sanityClient.fetch(SLUGS_QUERY, Astro.params);
 }
 ---
-<BaseLayout>
+<BaseLayout title={`${project?.title} Web Design by MXFrench`} description={`Web design for: ${project?.summary}`}>
+  <div class="section py-gv! max-md:py-8! bg-dark">
+    <div class="content">
+      <Navbar />
+    </div>
+  </div>
+
   <main class="section">
-    <div class="grid gap-8 content">
-      <h1 class="heading">{project?.title}</h1>
-      <p class="paragraph italic">{project?.summary}</p>
-      <div class="flex gap-4">
-        <a class="px-2 py-1 rounded bg-dark text-light cursor-pointer hover:bg-primary transition" href={project?.links?.figma}>Figma File</a>
-        <a class="px-2 py-1 rounded bg-dark text-light cursor-pointer hover:bg-primary transition" href={project?.links?.github}>GitHub Repo</a>
-        <a class="px-2 py-1 rounded bg-dark text-light cursor-pointer hover:bg-primary transition" href={project?.links?.liveSite}>Live Site</a>
+    <div class="content space-y-pv max-md:space-y-gv project">
+
+      <!-- Lil Header -->
+      <div class="space-y-sg project:hidden">
+        <!-- Title & Summary Header -->
+        <div class="space-y-4">
+          <h1 class="projectTitle">{project?.title}</h1>
+          <p class="paragraph italic">{project?.summary}</p>
+        </div>
+
+        <!-- Tab Buttons -->
+        <div class="flex gap-sg">
+          <label class="btn has-checked:bg-dark has-checked:text-light border-2 border-dark">
+            <span>Images</span>
+            <input type="radio" name="tab" class="hidden" id="images" checked>
+          </label>
+
+          <label class="btn has-checked:bg-dark has-checked:text-light border-2 border-dark">
+            <span>Description</span>
+            <input type="radio" name="tab" class="hidden" id="description">
+          </label>
+        </div>
       </div>
-      {project?.description?.split("\n\n")?.map((p: string) => (
-        <p class="paragraph">{p}</p>
-      ))}
+
+      <div class="grid project:grid-cols-2 gap-gh">
+        <ProjectImages images={project?.images} />
   
-      {project?.images?.map(({image, title}: {image: object, title: string}) => (
-        <img
-          src={urlForImage(image).width(1200).url()}
-          alt={title}
-        />
-      ))}
+        <!-- Project Description -->
+        <div class="space-y-gv max-md:space-y-10 showDescription">
+          <!-- Description header -->
+          <div class="space-y-sg max-project:hidden">
+            <h1 class="projectTitle">{project?.title}</h1>
+            <p class="paragraph italic">{project?.summary}</p>
+          </div>
+
+          <!-- Divider line when tabs are active -->
+          <hr class="project:hidden border-dark/75" />
+
+          <!-- Project links -->
+          <div class="flex flex-wrap gap-sg">
+            {project?.links?.figma && (
+              <a class="project-link" target="_blank" href={project?.links?.figma}>Figma File</a>
+            )}
+
+            {project?.links?.github && (
+              <a class="project-link" target="_blank" href={project?.links?.github}>GitHub Repo</a>
+            )}
+
+            {project?.links?.liveSite && (
+              <a class="project-link" target="_blank" href={project?.links?.liveSite}>Live Site</a>
+            )}
+          </div>
+
+          <!-- Description paragraphs -->
+          <article class="space-y-gv max-md:space-y-sg">
+            {project?.description?.split("\n\n")?.map((p:string) => (
+              <p class="paragraph">{p}</p>
+            ))}
+          </article>
+        </div>
+
+      </div>
+
     </div>
   </main>
 </BaseLayout>
